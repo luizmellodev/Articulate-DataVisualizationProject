@@ -1,5 +1,6 @@
 ### Este projeto não foi criado por mim, é apenas uma manipulação do projeto original para as necessidades de outro projeto.
-Projeto original: https://github.com/Stanford-Urban-Water-Policy-Innovation/Articulate
+    This project was not created by me, it is just a manipulation of the original project for the needs of another project.
+Projeto original/Original project: https://github.com/Stanford-Urban-Water-Policy-Innovation/Articulate
 
 
 
