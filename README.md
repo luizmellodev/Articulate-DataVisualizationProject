@@ -1,5 +1,7 @@
 # Articulate
 A search tool for quantifying news media coverage
+### (i) Este projeto não foi criado por mim, é apenas uma manipulação do projeto original para as necessidades de outro projeto.
+
 
 ## Introduction
 
