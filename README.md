@@ -3,7 +3,7 @@
 Projeto original/Original project: https://github.com/Stanford-Urban-Water-Policy-Innovation/Articulate
 
 
-## This project is using Python 3, to use Python in previous versions, convert the code or use the original repository at the end of this document.
+## This project is using Python 3, to use Python in previous versions, convert the code or use the original repository
 ㅤㅤ ㅤ
 ㅤㅤ ㅤ
 ㅤㅤ ㅤㅤㅤ ㅤ
