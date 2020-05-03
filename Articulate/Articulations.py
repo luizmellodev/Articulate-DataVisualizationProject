@@ -44,7 +44,7 @@ def getdate(time_step,refdate_str):
 #rerun_val is binary- 1 means rerun the query, 0 means continue
 def DKtest(DKcount,DKcheck,DKnum,current_day,DK,rerun_val):
     if DKcheck == DKcount or DKcount >= 10000:
-        print 'Possible DKcount off, changed DKnum: CHECK:%s, COUNT:%s, NUM:%s' %(DKcheck,DKcount,DKnum)
+        """print 'Possible DKcount off, changed DKnum: CHECK:%s, COUNT:%s, NUM:%s' %(DKcheck,DKcount,DKnum)"""  
         DKnum = DKnum + 1 #go to next DK
         DKcount = 0 #reset count
         DKcheck = 0 #reset check
@@ -53,31 +53,31 @@ def DKtest(DKcount,DKcheck,DKnum,current_day,DK,rerun_val):
             DKnum_holder = len(DK)
             while DKrun == 1:
                 DKnum_holder = input('Set DK back to 0 or "Exit":')
-                print DKnum_holder
+                print(DKnum_holder)
                 if DKnum_holder < len(DK) and DKnum_holder >= 0:
                     DKrun = 0
-                    print 'DKnum has been reset to %s' %(DKnum_holder)
+                    print('DKnum has been reset to %s' %(DKnum_holder))
                     DKnum = int(DKnum_holder)
                     while datetime.now().day == current_day: #while today is still today
-                        print 'still waiting'
+                        print('still waiting')
                         time.sleep(300) #sleep for 300 seconds and then try again
                 elif DKnum_holder == 'Exit': #if you dont want to wait for developer keys to reset, type "Exit"
                     DKrun = 0
                     sys.exit()
-                    print 'exiting'
+                    print('exiting')
                     sys.exit()
                 else:
-                    print 'Expected Error'
+                    print ('Expected Error')
             current_day = datetime.now().day #left the loop, update current day
         DKcheck = DKcount
-        print 'Switched DK to %s' %(DK[DKnum])
+        print ('Switched DK to %s' %(DK[DKnum]))
         res = ['Must Rerun']
-        print res[0]
-        print 'rerun_val = %s' %(rerun_val)
+        print(res[0])
+        print ('rerun_val = %s' %(rerun_val))
         if rerun_val == 1:
-            print 'Will rerun last query submission' #if there was an error but it's not due to DK count = 10,000
+            print ('Will rerun last query submission') #if there was an error but it's not due to DK count = 10,000
         else:
-            print 'Did not rerun last query submission' #if there was error due to DK count = 10,000
+            print ('Did not rerun last query submission') #if there was error due to DK count = 10,000
         return res,rerun_val,DKcount,DKcheck,DKnum,current_day
     else: # denotes that it has errored once and will check again
         res = ['must rerun']
@@ -164,7 +164,7 @@ def getinfo(
     global new_search
     new_search = ''
     while '"' in search:
-        print new_search
+        print (new_search)
         if temp_search[0] != '"': 
             new_search+temp_search[0]
             temp_search = temp_search[1:]
@@ -220,7 +220,7 @@ def getinfo(
     try:
         title = eval(commands[sites_key[n]]['title']).encode('ascii','ignore')
     except KeyError:
-        print 'Title missed: %s' %(commands[sites_key[n]]['title'])
+        print('Title missed: %s' %(commands[sites_key[n]]['title']))
         title = 'miss'
     
     if title in title_store and title != 'miss':
@@ -273,7 +273,7 @@ def getinfo(
             dataframe_index = day+pd.tseries.offsets.MonthEnd() #if you want daily, weekly, or yearly look up pandas date offset notation
             if dataframe_index >= article_tally.index[0] and dataframe_index <= article_tally.index[-1]: 
                 current_val = article_tally.loc[dataframe_index][sites_key[n]] #
-                print 'current tally is: %s for %s month' %(current_val+1,dataframe_index)
+                print ('current tally is: %s for %s month' %(current_val+1,dataframe_index))
                 article_tally.set_value(dataframe_index,sites_key[n],current_val+1) #tally articles
                 title_store.append(title)
             else:

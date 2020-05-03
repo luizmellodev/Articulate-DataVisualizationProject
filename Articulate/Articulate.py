@@ -248,9 +248,9 @@ def articulate():
                             if index > 91:
                                 timing = time.time() - start_time
                                 total_time += timing
-                                print '%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' % (index+n_res1-1, n_res2, search, site, timing)
-                                print 'Total time code has been running: %s seconds' % (total_time)
-                                print 'missing results, last day found: %s' %(date_store)
+                                print ('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' %(index+n_res1-1, n_res2, search, site, timing))
+                                print ('Total time code has been running: %s seconds' % (total_time))
+                                print ('missing results, last day found: %s' %(date_store))
                                 try:
                                     date_start = date_store_str
                                 except:
@@ -278,12 +278,12 @@ def articulate():
                                 index = 1
 
                         if time.time() - start_time > 300:
-                            print 'Request for results for %s to %s for keyword: "%s" and media source: "%s" timed out' %(refdate, today, search, site)
+                            print ('Request for results for %s to %s for keyword: "%s" and media source: "%s" timed out' %(refdate, today, search, site))
                             break
                     timing = time.time() - start_time
                     total_time += timing
-                    print '%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' % (index+n_res1-1, n_res2, search, site, timing)
-                    print 'Total time code has been running: %s seconds' % (total_time)
+                    print ('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' % (index+n_res1-1, n_res2, search, site, timing))
+                    print ('Total time code has been running: %s seconds' % (total_time))
 
         #create way to have same search with diff exclusions or orterms...
         article_tally[search]['Sum'] = (
