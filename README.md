@@ -5,5 +5,5 @@
 
 #### This project was not created by me, it's just a manipulation of the original project for the needs of another project.
 
-#### Original project: https://github.com/Stanford-Urban-Water-Policy-Innovation/Articulate
+#### Original repository: https://github.com/Stanford-Urban-Water-Policy-Innovation/Articulate
 
