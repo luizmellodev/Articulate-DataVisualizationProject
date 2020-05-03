@@ -12,8 +12,8 @@ import sys
 import dateutil
 import urllib.request
 import urllib.request
-from http.cookiejar import CookieJar
-from tkinter import *
+from cookielib import CookieJar
+from Tkinter import *
 
 #Using the specified time step the total timeframe is divided into time steps
 #The output is a formatted list of dates corresponding to each time window
@@ -24,7 +24,7 @@ def getdate(time_step,refdate_str):
         start=ref,
         end=today)
     #resampling to time window. 
-    dateseries = pd.Series(list(range(len(date_step))),date_step).resample(time_step).mean()
+    dateseries = pd.Series(range(len(date_step)),date_step).resample(time_step).mean()
     dates2adj = dateseries.index
     dates2usem = dates2adj.shift(
         int((ref-dates2adj[0]).days),
@@ -52,11 +52,11 @@ def DKtest(DKcount,DKcheck,DKnum,current_day,DK,rerun_val):
             DKrun = 1
             DKnum_holder = len(DK)
             while DKrun == 1:
-                DKnum_holder = eval(input('Set DK back to 0 or "Exit":'))
+                DKnum_holder = input('Set DK back to 0 or "Exit":')
                 print(DKnum_holder)
                 if DKnum_holder < len(DK) and DKnum_holder >= 0:
                     DKrun = 0
-                    print(('DKnum has been reset to %s' %(DKnum_holder)))
+                    print('DKnum has been reset to %s' %(DKnum_holder))
                     DKnum = int(DKnum_holder)
                     while datetime.now().day == current_day: #while today is still today
                         print('still waiting')
@@ -70,10 +70,10 @@ def DKtest(DKcount,DKcheck,DKnum,current_day,DK,rerun_val):
                     print ('Expected Error')
             current_day = datetime.now().day #left the loop, update current day
         DKcheck = DKcount
-        print(('Switched DK to %s' %(DK[DKnum])))
+        print ('Switched DK to %s' %(DK[DKnum]))
         res = ['Must Rerun']
-        print((res[0]))
-        print(('rerun_val = %s' %(rerun_val)))
+        print(res[0])
+        print ('rerun_val = %s' %(rerun_val))
         if rerun_val == 1:
             print ('Will rerun last query submission') #if there was an error but it's not due to DK count = 10,000
         else:
@@ -195,14 +195,14 @@ def getinfo(
 
             if url_str != 'none':
                 try:
-                    wbsite_toread = urllib.request.urlopen(url_str)
+                    wbsite_toread = urllib.urlopen(url_str)
                     wbsite = wbsite_toread.read()
                     if len(wbsite) < len(search):
                         sys.exit()
                 except:
                     try:
                         cj = CookieJar()
-                        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+                        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
                         wbsite = opener.open(url_str).read()
                     except:
                         wbsite = search+' - '+url_str
@@ -220,7 +220,7 @@ def getinfo(
     try:
         title = eval(commands[sites_key[n]]['title']).encode('ascii','ignore')
     except KeyError:
-        print(('Title missed: %s' %(commands[sites_key[n]]['title'])))
+        print('Title missed: %s' %(commands[sites_key[n]]['title']))
         title = 'miss'
     
     if title in title_store and title != 'miss':
@@ -273,7 +273,7 @@ def getinfo(
             dataframe_index = day+pd.tseries.offsets.MonthEnd() #if you want daily, weekly, or yearly look up pandas date offset notation
             if dataframe_index >= article_tally.index[0] and dataframe_index <= article_tally.index[-1]: 
                 current_val = article_tally.loc[dataframe_index][sites_key[n]] #
-                print(('current tally is: %s for %s month' %(current_val+1,dataframe_index)))
+                print ('current tally is: %s for %s month' %(current_val+1,dataframe_index))
                 article_tally.set_value(dataframe_index,sites_key[n],current_val+1) #tally articles
                 title_store.append(title)
             else:
@@ -328,7 +328,7 @@ def label_check():
         L4.grid(row=3,column=1)
 
 def callback1():
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     var1.set(e1.get())
     e1.grid_forget()
     L1 = Label(master, text=var1.get())
@@ -336,7 +336,7 @@ def callback1():
     label_check()
 
 def callback2():
-    print(('Entered "%s"' %(e2.get())))
+    print ('Entered "%s"' %(e2.get()))
     var2.set(e2.get())
     e2.grid_forget()
     L2 = Label(master, text=var2.get())
@@ -344,7 +344,7 @@ def callback2():
     label_check()
 
 def callback3():
-    print(('Entered "%s"' %(e3.get())))
+    print ('Entered "%s"' %(e3.get()))
     var3.set(e3.get())
     e3.grid_forget()
     L3 = Label(master, text=var3.get())
@@ -421,7 +421,7 @@ def label_check_keys():
         L4.grid(row=3,column=1)
 
 def callback1keys():
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     var1.set(e1.get())
     e1.grid_forget()
     L1 = Label(master, text=var1.get())
@@ -434,7 +434,7 @@ def devkey():
         lab2.destroy()
     var_dict[rowx] = StringVar()
     var_dict[rowx].set(ent.get())
-    print(('Entered "%s"' %(var_dict[rowx].get())))
+    print ('Entered "%s"' %(var_dict[rowx].get()))
     lab2 = Label(master2, text='Developer Key Entered: %s' %(var_dict[rowx].get()))
     lab2.grid(row=rowx+1,column=1)
     b4.grid(row=rowx+2,column=1)
@@ -519,7 +519,7 @@ def label_checkf():
         L4.grid(row=3,column=1)
 
 def callback1f():
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     varf1.set(e1.get())
     e1.grid_forget()
     L1 = Label(master, text=varf1.get())
@@ -527,7 +527,7 @@ def callback1f():
     label_checkf()
 
 def callback2f():
-    print(('Entered "%s"' %(e2.get())))
+    print ('Entered "%s"' %(e2.get()))
     varf2.set(e2.get())
     e2.grid_forget()
     L2 = Label(master, text=varf2.get())
@@ -535,7 +535,7 @@ def callback2f():
     label_checkf()
 
 def callback3f():
-    print(('Entered "%s"' %(e3.get())))
+    print ('Entered "%s"' %(e3.get()))
     varf3.set(e3.get())
     e3.grid_forget()
     L3 = Label(master, text=varf3.get())
@@ -584,7 +584,7 @@ def input_files():
 #________________________________________________________
 
 def storevar():
-    for num in list(c_dict.keys()):
+    for num in c_dict.keys():
         if val[num].get() == 1:
             var_orstore[num] = var_ordict[num].get()
         else:
@@ -593,7 +593,7 @@ def storevar():
 def callback1or():
     counter = lcounter[-1]
 
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     val[counter] = IntVar()
     var_ordict[counter] = StringVar()
     var_ordict[counter].set(e1.get())
@@ -641,7 +641,7 @@ def or_terms(search):
 #________________________________________________________
 
 def storewords():
-    for num in list(c_dict.keys()):
+    for num in c_dict.keys():
         if val[num].get() == 1:
             var_wordstore[num] = var_worddict[num].get()
         else:
@@ -650,7 +650,7 @@ def storewords():
 def callback1words():
     counter = lcounter[-1]
 
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     val[counter] = IntVar()
     var_worddict[counter] = StringVar()
     var_worddict[counter].set(e1.get())
@@ -697,7 +697,7 @@ def search_terms():
 #___________________________________________________________________________
 
 def storevarincl():
-    for num in list(c_dict.keys()):
+    for num in c_dict.keys():
         if val[num].get() == 1:
             var_inclstore[num] = var_incldict[num].get()
         else:
@@ -706,7 +706,7 @@ def storevarincl():
 def callback1incl():
     counter = lcounter[-1]
 
-    print(('Entered "%s"' %(e1.get())))
+    print ('Entered "%s"' %(e1.get()))
     val[counter] = IntVar()
     var_incldict[counter] = StringVar()
     var_incldict[counter].set(e1.get())

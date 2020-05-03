@@ -37,7 +37,7 @@ def articulate():
     #DK is an array with all developer keys
     global DK
     DK = []
-    for DK_key in list(art.var_dict.keys()):
+    for DK_key in art.var_dict.keys():
         DK.append(art.var_dict[DK_key].get())
     DKnum = 0
     DKcount = 0
@@ -96,7 +96,7 @@ def articulate():
     art.search_terms()
     searchwords = [] #list of search words to find in articles
     #This establishes the words being searched for in an article, search for direct quote
-    for term_key in list(art.var_wordstore.keys()):
+    for term_key in art.var_wordstore.keys():
         if art.var_wordstore[term_key] != 0: #ignore unchecked boxes in GUI
             searchwords.append(art.var_wordstore[term_key])
 
@@ -107,7 +107,7 @@ def articulate():
     for search in searchwords:
         art.or_terms(search)
         ors_list = []
-        for or_keys in list(art.var_orstore.keys()):
+        for or_keys in art.var_orstore.keys():
             ors_list.append(art.var_orstore[or_keys])
         orterms[or_count] = tuple(ors_list)
         if len(orterms[or_count]) == 0:
@@ -120,7 +120,7 @@ def articulate():
     for search in searchwords:
         art.incl_terms(search)
         incl_list = []
-        for incl_keys in list(art.var_inclstore.keys()):
+        for incl_keys in art.var_inclstore.keys():
             incl_list.append(art.var_inclstore[incl_keys])
         inclterms[incl_count] = tuple(incl_list)
         incl_count += 1
@@ -140,7 +140,7 @@ def articulate():
     dates_range = pd.date_range(
         start=pd.Timestamp(refdate_str),
         end=pd.Timestamp(today)+pd.tseries.offsets.MonthEnd(),
-        freq='M')#must enter a day from next month or last day of current month or else concatenates.
+        freq=u'M')#must enter a day from next month or last day of current month or else concatenates.
 
     article_tally = {} # Dictionary of date bins that tallies the results by source
     title_missed = [] # tracking articles that have associated dates which cannot be found
@@ -158,11 +158,11 @@ def articulate():
     for k in range(len(searchwords)): #for each searchword there is a new dictionary
         search = searchwords[k]
         # One data frame for each search, where each data frame has columns corresponding to sources and rows corresponding to dates
-        article_tally[search] = pd.DataFrame(np.zeros((len(dates_range),len(list(media_sites.keys())))),index=dates_range, columns=list(media_sites.keys())) 
+        article_tally[search] = pd.DataFrame(np.zeros((len(dates_range),len(media_sites.keys()))),index=dates_range, columns=media_sites.keys()) 
         to_write[search] = {}
-        for n in range(len(list(media_sites.keys()))): #for each site, creating a new dictionary
+        for n in range(len(media_sites.keys())): #for each site, creating a new dictionary
             row_num = 1
-            site = media_sites[list(media_sites.keys())[n]]
+            site = media_sites[media_sites.keys()[n]]
             to_write[search][site] = {}
             total_time = 0
             dates = art.getdate(time_step,refdate_str) #set up the time windows (bins)
@@ -184,7 +184,7 @@ def articulate():
                             global res
                             res,rerun_val,DKcount,DKcheck,DKnum,current_day = art.runquery(
                                 DK,
-                                media_sites[list(media_sites.keys())[n]],
+                                media_sites[media_sites.keys()[n]],
                                 searchwords[k],
                                 index,
                                 date_start,
@@ -200,12 +200,12 @@ def articulate():
                         n_res2 = int(res['queries']['request'][0]['totalResults']) #second way to count results- total results for query
                         if n_res1 > 0 and n_res2 > 0:
                             for num in range(n_res1):
-                                row,article_excluded,title_missed,article_tally[search],error,title_store[list(media_sites.keys())[n]] = art.getinfo(
+                                row,article_excluded,title_missed,article_tally[search],error,title_store[media_sites.keys()[n]] = art.getinfo(
                                     res,
                                     day_list,
                                     site,
                                     search,
-                                    list(media_sites.keys()),
+                                    media_sites.keys(),
                                     n,
                                     num,
                                     commands,
@@ -213,7 +213,7 @@ def articulate():
                                     title_missed,
                                     article_tally[search],
                                     error,
-                                    title_store[list(media_sites.keys())[n]],
+                                    title_store[media_sites.keys()[n]],
                                     orterm_specific)
 
                                 to_write[search][site][row_num] = row 
@@ -237,7 +237,7 @@ def articulate():
                                 row_num = row_num + 1              	
                         else:
                             break
-                        if 'nextPage' not in list(res['queries'].keys()): #if there is no next page, end search
+                        if 'nextPage' not in res['queries'].keys(): #if there is no next page, end search
                             break
 
                         #If there is a next page, but the index is such that the data connot be retreived, due to the API's limitations, (meaning the 
@@ -248,9 +248,9 @@ def articulate():
                             if index > 91:
                                 timing = time.time() - start_time
                                 total_time += timing
-                                print(('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' %(index+n_res1-1, n_res2, search, site, timing)))
-                                print(('Total time code has been running: %s seconds' % (total_time)))
-                                print(('missing results, last day found: %s' %(date_store)))
+                                print ('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' %(index+n_res1-1, n_res2, search, site, timing))
+                                print ('Total time code has been running: %s seconds' % (total_time))
+                                print ('missing results, last day found: %s' %(date_store))
                                 try:
                                     date_start = date_store_str
                                 except:
@@ -278,24 +278,24 @@ def articulate():
                                 index = 1
 
                         if time.time() - start_time > 300:
-                            print(('Request for results for %s to %s for keyword: "%s" and media source: "%s" timed out' %(refdate, today, search, site)))
+                            print ('Request for results for %s to %s for keyword: "%s" and media source: "%s" timed out' %(refdate, today, search, site))
                             break
                     timing = time.time() - start_time
                     total_time += timing
-                    print(('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' % (index+n_res1-1, n_res2, search, site, timing)))
-                    print(('Total time code has been running: %s seconds' % (total_time)))
+                    print ('%s (%s) results retrieved for keyword: "%s" and media source: "%s" and time: %s' % (index+n_res1-1, n_res2, search, site, timing))
+                    print ('Total time code has been running: %s seconds' % (total_time))
 
         #create way to have same search with diff exclusions or orterms...
         article_tally[search]['Sum'] = (
-            article_tally[search][list(article_tally[search].keys())[0:]].sum(1))
+            article_tally[search][article_tally[search].keys()[0:]].sum(1))
         article_tally[search].to_csv(''.join(search.split())+'_Dataframe_%s_%s%s%s.csv' %(output_filename,datetime.today().month,datetime.today().day,datetime.today().year))
 
     with open(output_filename, 'wb') as fto:
         wtr = csv.writer(fto)
         wtr.writerow(['site','search','title','day','year','media_type','further_info'])
-        for srkey in list(to_write.keys()):
-            for sikey in list(to_write[srkey].keys()):
-                for inkey in list(to_write[srkey][sikey].keys()):
+        for srkey in to_write.keys():
+            for sikey in to_write[srkey].keys():
+                for inkey in to_write[srkey][sikey].keys():
                     wtr.writerow(to_write[srkey][sikey][inkey])
                     
 if __name__ == '__main__':
