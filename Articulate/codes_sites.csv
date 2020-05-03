@@ -1,0 +1,3 @@
+site,url,type,date,keyword,title,type2,keyword2
+Sacramento Bee,http://www.sacbee.com/,res['items'][index]['pagemap']['metatags'][0]['og:type'],"[str(res['items'][index]['snippet'][0:13]), pd.Timestamp(date).to_datetime()]",res['items'][index]['og:trial'],res['items'][index]['pagemap']['metatags'][0]['og:title'],res['items'][index]['pagemap']['metatags'][0]['pt'],res['items'][index]['pagemap']['metatags'][0]['og:url']
+ALL,.,res['items'][index]['pagemap']['metatags'][0]['og:type'],"[str(res['items'][index]['snippet'][0:13]), pd.Timestamp(date).to_datetime()]",res['items'][index]['og:trial'],res['items'][index]['pagemap']['metatags'][0]['og:title'],res['items'][index]['pagemap']['metatags'][0]['pt'],res['items'][index]['pagemap']['metatags'][0]['og:url']
