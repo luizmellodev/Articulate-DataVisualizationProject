@@ -57,7 +57,7 @@ def articulate():
 
     commands = {} #set of site specific commands to be executed to extract information from articles in each site
     #load in api specific code
-    with open(media_sites_file,'rb') as s:
+    with open(media_sites_file,'r') as s:
         rdr = csv.reader(s)
         keys = next(rdr) #keys are column headers in the first row
         for row in rdr:
