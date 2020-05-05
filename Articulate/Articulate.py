@@ -4,12 +4,14 @@ import time
 from datetime import datetime
 from datetime import timedelta
 from googleapiclient.discovery import build
+from os import getcwd
 import ast
 import numpy as np
 import pandas as pd
 import sys
 import dateutil
 import Articulations as art
+import io
 
 
 
@@ -58,7 +60,8 @@ def articulate():
 
     commands = {} #set of site specific commands to be executed to extract information from articles in each site
     #load in api specific code
-    with open(media_sites_file,'rb') as s:
+    print(getcwd())
+    with open('C:\Github Projects\Articulate-devBranch\Articulate\codes_sites.csv','rb') as s:
         rdr = csv.reader(s)
         keys = next(rdr) #keys are column headers in the first row
         for row in rdr:
