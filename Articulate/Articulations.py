@@ -29,7 +29,6 @@ def getdate(time_step,refdate_str):
     #resampling to time window. 
     dateseries = pd.Series(range(len(date_step)),date_step).resample(time_step).mean()
     dates2adj = dateseries.index
-    print dates2adj
     dates2usem = dates2adj.shift(
         int((ref-dates2adj[0]).days),
         freq='7D')
@@ -49,6 +48,7 @@ def getdate(time_step,refdate_str):
 def DKtest(DKcount,DKcheck,DKnum,current_day,DK,rerun_val):
     if DKcheck == DKcount or DKcount >= 10000:
         print 'Possible DKcount off, changed DKnum: CHECK:%s, COUNT:%s, NUM:%s' %(DKcheck,DKcount,DKnum)
+        print DKcount, DKcheck
         DKnum = DKnum + 1 #go to next DK
         DKcount = 0 #reset count
         DKcheck = 0 #reset check

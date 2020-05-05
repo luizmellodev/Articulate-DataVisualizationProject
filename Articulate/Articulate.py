@@ -65,7 +65,7 @@ def articulate():
         rdr = csv.reader(s)
         keys = next(rdr) #keys are column headers in the first row
         for row in rdr:
-            print('teste')
+            print('lines')
             if row[0] != 'ALL':
                 media_sites[row[0]] = row[1] #First extract the websites to a dictionary
             commands[row[0]] = {}
