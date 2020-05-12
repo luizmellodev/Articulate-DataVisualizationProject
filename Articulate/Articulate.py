@@ -61,7 +61,7 @@ def articulate():
     commands = {} #set of site specific commands to be executed to extract information from articles in each site
     #load in api specific code
     print(getcwd())
-    with open('C:\Github Projects\Articulate-devBranch\Articulate\codes_sites.csv','rb') as s:
+    with open('D:\Articulate\Articulate github\Articulate-DataVisualizationProject\Articulate\codes_sites.csv','rb') as s:
         rdr = csv.reader(s)
         keys = next(rdr) #keys are column headers in the first row
         for row in rdr:
